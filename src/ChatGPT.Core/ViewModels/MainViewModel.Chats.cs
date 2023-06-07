@@ -67,6 +67,7 @@ public partial class MainViewModel
             MaxTokens = Defaults.DefaultMaxTokens,
             Model = Defaults.DefaultModel,
             ApiKey = null,
+            ProxyUrl = null,
             Directions = Defaults.DefaultDirections,
             Format = Defaults.MarkdownMessageFormat,
         };

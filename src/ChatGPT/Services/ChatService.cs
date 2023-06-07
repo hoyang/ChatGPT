@@ -1,6 +1,9 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
+using System.Runtime;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,13 +14,13 @@ namespace AI.Services;
 
 public class ChatService : IChatService
 {
-    private static readonly HttpClient s_client;
+    private static HttpClient s_client;
     private static readonly string s_apiUrl = "https://api.openai.com/v1/chat/completions";
     private readonly IChatSerializer _serializer;
 
     static ChatService()
     {
-        s_client = new();
+        s_client = new HttpClient();
     }
 
     public ChatService(IChatSerializer serializer)
@@ -53,9 +56,24 @@ public class ChatService : IChatService
         return _serializer.Serialize(requestBody);
     }
 
-    private async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
+    private async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string? proxyUrl, string requestBodyJson, CancellationToken token)
     {
-        // Create a new HttpClient for making the API request
+        // Create a new HttpClient with proxy for making the API request
+        if (!string.IsNullOrEmpty(proxyUrl))
+        {
+            var proxy = new WebProxy
+            {
+                Address = new Uri(proxyUrl),
+                BypassProxyOnLocal = false,
+                UseDefaultCredentials = false,
+            };
+            var httpClientHandler = new HttpClientHandler
+            {
+                Proxy = proxy,
+            };
+            //httpClientHandler.ServerCertificateCustomValidationCallback += delegate (HttpRequestMessage httpRequestMessage, X509Certificate2 x509Certificate, X509Chain x509Chain, SslPolicyErrors sslPolicyErrors) { return true; };
+            s_client = new(handler: httpClientHandler, disposeHandler: true);
+        }
 
         // Set the API key in the request headers
         if (s_client.DefaultRequestHeaders.Contains("Authorization"))
@@ -131,6 +149,6 @@ public class ChatService : IChatService
         }
 
         // Send the API request and get the response data
-        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
+        return await SendApiRequestAsync(apiUrl, apiKey, settings.ProxyUrl, requestBodyJson, token);
     }
 }

@@ -42,6 +42,7 @@ public class ChatViewModel : ObservableObject
         decimal frequencyPenalty = 0m,
         int maxTokens = 2000, 
         string? apiKey = null,
+        string? proxyUrl = null,
         string model = "gpt-3.5-turbo") : this()
     {
         _settings = new ChatSettingsViewModel
@@ -52,6 +53,7 @@ public class ChatViewModel : ObservableObject
             FrequencyPenalty = frequencyPenalty,
             MaxTokens = maxTokens,
             ApiKey = apiKey,
+            ProxyUrl = proxyUrl,
             Model = model,
             Directions = directions
         };
@@ -402,6 +404,7 @@ public class ChatViewModel : ObservableObject
             TopP = 1.0m,
             Stop = null,
             ApiUrl = Settings.ApiUrl,
+            ProxyUrl = Settings.ProxyUrl
         };
 
         var result = new ChatResultViewModel

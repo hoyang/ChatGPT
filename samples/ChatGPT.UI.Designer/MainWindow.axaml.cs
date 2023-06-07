@@ -47,6 +47,7 @@ Write XAML as plain text.
                 FrequencyPenalty = 0m,
                 MaxTokens = 2000,
                 ApiKey = null,
+                ProxyUrl = null,
                 Model = "gpt-3.5-turbo",
                 // Model = "gpt-4",
                 Directions = directions,

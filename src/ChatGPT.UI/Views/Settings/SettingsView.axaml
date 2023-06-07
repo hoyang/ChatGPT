@@ -22,6 +22,7 @@
               <vmc:ChatSettingsViewModel.PresencePenalty>0</vmc:ChatSettingsViewModel.PresencePenalty>
               <vmc:ChatSettingsViewModel.MaxTokens>100</vmc:ChatSettingsViewModel.MaxTokens>
               <vmc:ChatSettingsViewModel.ApiKey><x:Null/></vmc:ChatSettingsViewModel.ApiKey>
+              <vmc:ChatSettingsViewModel.ProxyUrl><x:Null/></vmc:ChatSettingsViewModel.ProxyUrl>
             </vmc:ChatSettingsViewModel>
           </vmc:ChatViewModel.Settings>
         </vmc:ChatViewModel>

@@ -16,6 +16,7 @@
       <vmc:ChatSettingsViewModel.PresencePenalty>0</vmc:ChatSettingsViewModel.PresencePenalty>
       <vmc:ChatSettingsViewModel.MaxTokens>100</vmc:ChatSettingsViewModel.MaxTokens>
       <vmc:ChatSettingsViewModel.ApiKey><x:Null/></vmc:ChatSettingsViewModel.ApiKey>
+      <vmc:ChatSettingsViewModel.ProxyUrl><x:Null/></vmc:ChatSettingsViewModel.ProxyUrl>
       <vmc:ChatSettingsViewModel.Directions>
         The prompt can have multiple lines
         and can be very long.
@@ -150,6 +151,21 @@
                  Padding="8" 
                  FontSize="{DynamicResource SettingContentFontSize}"
                  ToolTip.Tip="Override OpenAI api key. By default OPENAI_API_KEY environment variable is used."  />
+      </StackPanel>
+
+      <!-- ProxyUrl -->
+      <StackPanel Name="ProxyUrlStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Proxy Url:"
+                   Margin="8,2,8,2"
+                   Padding="0,4,0,4"
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <TextBox Text="{Binding ProxyUrl}"
+                 Watermark="http://127.0.0.1:10809"
+                 Margin="8,0,8,0"
+                 Padding="8"
+                 FontSize="{DynamicResource SettingContentFontSize}"
+                 ToolTip.Tip="Set HTTP proxy for api.openai.com."  />
       </StackPanel>
 
       <!-- Url -->
